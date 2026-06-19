@@ -1,0 +1,11 @@
+event_cause,event_count,median_min,p75_min
+construction,53,295.6,426.6
+road_conditions,31,245.9,755.9
+water_logging,101,106.9,282.9
+tree_fall,104,90.4,330.5
+others,240,75.1,175.1
+congestion,22,71.5,113.9
+accident,91,41.4,62.0
+vehicle_breakdown,1841,41.1,73.5
+procession,13,36.5,91.6
+pot_holes,32,36.4,305.1

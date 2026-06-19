@@ -1,0 +1,11 @@
+corridor,event_count,median_duration_min,high_priority_rate,road_closure_rate,impact_score
+Mysore Road,743,41.2,99.7,11.0,0.864
+Bellary Road 1,610,42.3,100.0,5.4,0.702
+Airport New South Road,67,60.1,100.0,10.4,0.68
+ORR North 1,275,51.1,100.0,8.0,0.67
+Varthur Road,77,46.9,100.0,11.7,0.667
+Hennur Main Road,96,78.4,100.0,6.2,0.66
+Hosur Road,298,57.6,100.0,5.7,0.65
+CBD 1,26,44.9,100.0,11.5,0.639
+Old Airport Road,76,61.5,100.0,7.9,0.633
+CBD 2,104,60.3,100.0,6.7,0.614
