@@ -20,7 +20,7 @@ Every number is drawn from the provided ASTraM dataset. No external data, no syn
 ## Folder map
 
 ```
-round_2/
+gridlock-round2/   # repo root
 ├── data/
 │   └── events.csv              # Cleaned ASTraM event data (8,173 rows)
 ├── eda/
@@ -50,7 +50,7 @@ round_2/
 ├── impact_models.py            # Inference wrapper (predict_impact)
 ├── recommend.py                # Recommendation engine (recommend)
 ├── learning.py                 # Monthly retrain + drift comparison script
-├── app.py                      # Streamlit dashboard + Event Simulator
+├── app.py                      # Streamlit dashboard (Event Response + City Insights)
 ├── DECK.md                     # Pitch deck (slide-by-slide)
 ├── PLAN.md                     # Project plan and PS2 requirement mapping
 ├── RECOMMEND.md                # Recommendation engine logic + worked examples
@@ -67,8 +67,8 @@ round_2/
 Python environment with all packages pinned in `requirements.txt`. Activate with:
 
 ```bash
-source /Users/valletivarish/Desktop/flipkart_ml/.venv/bin/activate
-# or reference the venv python directly (see commands below)
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
 ### 1. Run the notebook (EDA + model training + learning loop)
@@ -82,36 +82,34 @@ jupyter notebook
 jupyter lab
 ```
 
-All figures in `round_2/eda/` and model artifacts in `round_2/models/` are produced by the notebook. If artifacts already exist, inference scripts load them directly — no retraining needed.
+All figures in `eda/` and model artifacts in `models/` are produced by the notebook. If artifacts already exist, inference scripts load them directly — no retraining needed.
 
 To retrain models from scratch:
 
 ```bash
-/Users/valletivarish/Desktop/flipkart_ml/.venv/bin/python round_2/train_models.py
+python train_models.py
 ```
 
 To re-run the drift/learning experiment:
 
 ```bash
-/Users/valletivarish/Desktop/flipkart_ml/.venv/bin/python round_2/learning.py
+python learning.py
 ```
 
 ### 2. Run the Streamlit dashboard
 
 ```bash
-/Users/valletivarish/Desktop/flipkart_ml/.venv/bin/streamlit run round_2/app.py
+streamlit run app.py
 ```
 
-The dashboard opens at `http://localhost:8501` and includes:
-- **Map view** — all 8,173 events plotted; hotspot heatmap overlaid
-- **Trend charts** — monthly volume, hourly profile, day-of-week patterns
-- **Corridor rankings** — top 10 by composite impact score
-- **Event Simulator** — enter any event (cause, corridor, zone, priority, time) and receive a live recommendation output
+The dashboard opens at `http://localhost:8501` with two tabs:
+- **Event Response** — enter a reported event (cause, corridor, zone, priority, time, location) and click *Get Recommendation* for an instant deployment plan: road-closure probability, severity, expected clearance, officer count, barricading flag, nearest police station, and diversion advice with a plain-English rationale.
+- **City Insights** — city-wide KPIs (8,173 events, 94% unplanned, 8.3% closure rate), an event hotspot map, top-corridor rankings, key EDA reference tables, and an honest model-reliability note.
 
 ### 3. Use the recommendation engine directly (Python)
 
 ```python
-from round_2.recommend import recommend
+from recommend import recommend
 
 event = {
     "event_cause": "construction",
@@ -210,6 +208,6 @@ Gains are modest but consistent. The Feb dip (static AUC 0.696) is the concrete 
 
 ## Submission compliance
 
-- Dataset: only the provided ASTraM data (`round_2/data/events.csv`) — no external sources
+- Dataset: only the provided ASTraM data (`data/events.csv`) — no external sources
 - Theme: PS2 Event-Driven Congestion
 - Deadline: Jun 21, 11:59 PM IST

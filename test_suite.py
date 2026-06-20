@@ -3,7 +3,7 @@ BTP Event Intelligence — Comprehensive Test Suite
 Flipkart Gridlock Round-2, PS2 (Bengaluru Traffic Police)
 
 Run:
-    python round_2/test_suite.py
+    python test_suite.py
 
 Exit 0 if all pass, nonzero if any fail.
 Covers:
@@ -609,7 +609,7 @@ except Exception as exc:
 # (5) DASHBOARD SMOKE TEST — streamlit.testing.v1.AppTest
 # ═════════════════════════════════════════════════════════════════════════════
 
-section("(5) DASHBOARD SMOKE TEST — AppTest on round_2/app.py")
+section("(5) DASHBOARD SMOKE TEST — AppTest on app.py")
 
 try:
     from streamlit.testing.v1 import AppTest

@@ -1,6 +1,6 @@
 """
-Build round_2/presentation.pptx from DECK.md content.
-Run with: /Users/valletivarish/Desktop/flipkart_ml/.venv/bin/python round_2/build_pptx.py
+Build presentation.pptx from DECK.md content.
+Run with: python build_pptx.py
 """
 
 from pptx import Presentation

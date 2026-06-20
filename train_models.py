@@ -1,6 +1,6 @@
 """
 Train duration (regression) and road-closure (classification) models.
-Saves artifacts to round_2/models/ for use by impact_models.py.
+Saves artifacts to models/ for use by impact_models.py.
 """
 
 import sys, os

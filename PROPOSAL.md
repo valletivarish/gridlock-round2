@@ -115,7 +115,7 @@ Every processing decision is documented in `data_prep.py` and reproducible from 
 
 ## 4. Key Insights from the Data
 
-All findings below are derived from the ASTraM dataset. Each figure referenced is produced by `eda/eda_insights.py` and stored in `round_2/eda/`.
+All findings below are derived from the ASTraM dataset. Each figure referenced is produced by `eda/eda_insights.py` and stored in `eda/`.
 
 ### Finding 1: The City's Congestion Problem Is 94% Reactive
 
@@ -309,7 +309,7 @@ The comparison is evaluated on ROC-AUC for the road-closure classifier. Results 
 
 ## 7. Results & Accuracy
 
-> **Authoritative source:** all model metrics in this section are drawn from `round_2/test_suite.py` (reproducible formal test suite); the complete results log is `round_2/TEST_REPORT.md`.
+> **Authoritative source:** all model metrics in this section are drawn from `test_suite.py` (reproducible formal test suite); the complete results log is `TEST_REPORT.md`.
 
 ### 7.1 Road-Closure Classifier (Primary Signal)
 
@@ -321,7 +321,7 @@ The comparison is evaluated on ROC-AUC for the road-closure classifier. Results 
 | Unseen-corridor holdout — 6 withheld corridors | **0.696 (~0.70)** | 0.335 |
 | Cold-start (unseen corridor + unseen junction) | **0.731 (~0.73)** | — |
 
-*Source: `round_2/TEST_REPORT.md` (reproducible formal test suite, `round_2/test_suite.py`) — authoritative numbers.*
+*Source: `TEST_REPORT.md` (reproducible formal test suite, `test_suite.py`) — authoritative numbers.*
 
 **Interpreting these numbers honestly:**
 
@@ -376,7 +376,7 @@ The duration model is retained in the pipeline to assist severity scoring intern
 | Mar 2024 | 5,576 | 1,956 | 10.1% | 0.792 | 0.805 | **+0.013** |
 | Apr 2024 | 7,532 | 641 | 9.4% | 0.822 | 0.838 | **+0.016** |
 
-*Source: `round_2/LEARNING.md` · Chart: `round_2/eda/fig_07_learning.png`*
+*Source: `LEARNING.md` · Chart: `eda/fig_07_learning.png`*
 
 February 2024 is the concrete case for the learning loop. The static model's AUC dropped to 0.696 — a meaningful degradation on a rare-class problem where AUC 0.70 is the proposed alert threshold. The retrained model stayed at 0.714 because it incorporated the new event patterns seen in January. In March and April, as the retrained model accumulates more data, its advantage over the frozen model grows to +1.3 and +1.6 pp respectively. Retraining never materially hurts (January: −0.004 pp, negligible at that sample size), providing a clear safety argument for routine monthly retraining.
 
@@ -465,7 +465,7 @@ The system handles new corridors without code changes. The three-layer station f
 
 ### Real-Time Feed
 
-The current prototype reads from `round_2/data/events.csv` — a static historical file. Connecting to a live ASTraM API feed requires one change: replacing the CSV loader with an API call. All downstream logic (feature engineering, model inference, recommendation engine) is already written as a function that takes a single event dictionary. The Event Simulator in the Streamlit dashboard is already operating in this mode — each simulated event is processed as a real-time call to `recommend(event)`.
+The current prototype reads from `data/events.csv` — a static historical file. Connecting to a live ASTraM API feed requires one change: replacing the CSV loader with an API call. All downstream logic (feature engineering, model inference, recommendation engine) is already written as a function that takes a single event dictionary. The Event Simulator in the Streamlit dashboard is already operating in this mode — each simulated event is processed as a real-time call to `recommend(event)`.
 
 ### Other Cities
 
@@ -544,6 +544,6 @@ The ask is a 30-day pilot on Mysore Road. That is enough to validate whether the
 
 ---
 
-*All numbers in this document are sourced from the provided ASTraM dataset (8,173 events, Nov 2023 – Apr 2024). Source files: `round_2/eda/INSIGHTS.md`, `round_2/models/MODELS.md`, `round_2/RECOMMEND.md`, `round_2/LEARNING.md`. EDA figures: `round_2/eda/fig_01_monthly_trend.png` through `fig_07_learning.png`. No external data was used at any stage.*
+*All numbers in this document are sourced from the provided ASTraM dataset (8,173 events, Nov 2023 – Apr 2024). Source files: `eda/INSIGHTS.md`, `models/MODELS.md`, `RECOMMEND.md`, `LEARNING.md`. EDA figures: `eda/fig_01_monthly_trend.png` through `fig_07_learning.png`. No external data was used at any stage.*
 
-*Prototype artifacts: `round_2/event_intelligence.ipynb` (full analysis notebook) · `round_2/app.py` (Streamlit dashboard) · `round_2/models/` (trained model files) · `round_2/requirements.txt` (pinned dependencies)*
+*Prototype artifacts: `event_intelligence.ipynb` (full analysis notebook) · `app.py` (Streamlit dashboard) · `models/` (trained model files) · `requirements.txt` (pinned dependencies)*

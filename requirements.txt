@@ -1,6 +1,6 @@
 # Gridlock Hackathon 2.0 — Round 2
 # Pinned versions from .venv (darwin, python 3.x)
-# Generated: /Users/valletivarish/Desktop/flipkart_ml/.venv/bin/python -m pip freeze
+# Generated: python -m pip freeze
 
 pandas==3.0.3
 numpy==2.4.6

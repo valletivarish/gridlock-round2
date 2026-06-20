@@ -4,13 +4,13 @@ Bengaluru Traffic Police - PS2: Event-Driven Congestion
 Gridlock Hackathon 2.0, Round 2
 
 Run:
-    streamlit run round_2/app.py
+    streamlit run app.py
 """
 
 import sys
 import os
 
-# Allow `streamlit run round_2/app.py` from the repo root
+# Make sibling modules importable whether run from the repo root (flat clone) or a parent dir
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 

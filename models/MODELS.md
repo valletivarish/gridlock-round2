@@ -31,7 +31,7 @@ veh_type, priority, latitude, longitude, hour, dow, month, is_peak, is_weekend`
 The time-based split is the primary "does it work on future data?" test.
 The corridor holdout tests generalisation to **unseen locations**.
 
-**Authoritative metrics:** all holdout numbers below are sourced from `round_2/test_suite.py` (reproducible formal test suite); the summary is in `round_2/TEST_REPORT.md`.
+**Authoritative metrics:** all holdout numbers below are sourced from `test_suite.py` (reproducible formal test suite); the summary is in `TEST_REPORT.md`.
 
 ---
 

@@ -39,7 +39,7 @@ changes, and drift over time. Baked in everywhere:
 ## TODO checklist
 
 ### Phase 0 — Setup & compliance
-- [ ] Create `round_2/` structure (`data/`, notebook, `app/`, `deck/`)
+- [ ] Create `` structure (`data/`, notebook, `app/`, `deck/`)
 - [ ] Install env: streamlit, folium/plotly (lightgbm, catboost, pandas already present)
 - [ ] Lock rule: **only the provided ASTraM dataset** — no external data
 

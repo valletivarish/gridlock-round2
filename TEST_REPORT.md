@@ -1,6 +1,6 @@
 # BTP Event Intelligence — Test Report
 **Flipkart Gridlock Round-2 · PS2 (Bengaluru Traffic Police)**
-Run: `python round_2/test_suite.py`
+Run: `python test_suite.py`
 Result: **78 / 78 tests passed · 0 failed**
 
 ---

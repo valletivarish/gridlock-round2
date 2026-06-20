@@ -1,7 +1,7 @@
 """
 EDA + Insights generator for the BTP ASTraM event dataset.
 Produces charts (PNG), summary tables (CSV), and INSIGHTS.md.
-Run with: /Users/valletivarish/Desktop/flipkart_ml/.venv/bin/python round_2/eda/eda_insights.py
+Run with: python eda/eda_insights.py
 """
 
 import sys, os

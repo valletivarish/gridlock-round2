@@ -255,4 +255,4 @@ Rationale                High-impact event on city's #1 congestion corridor;
 
 *All figures referenced: fig_01_monthly_trend.png · fig_02_hourly_profile.png · fig_03_dow.png · fig_04_corridors.png · fig_05_resolution_by_cause.png · fig_06_drift.png · fig_07_learning.png*
 
-*All numbers traceable to: round_2/eda/INSIGHTS.md · round_2/models/MODELS.md · round_2/RECOMMEND.md · round_2/LEARNING.md*
+*All numbers traceable to: eda/INSIGHTS.md · models/MODELS.md · RECOMMEND.md · LEARNING.md*

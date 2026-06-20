@@ -1,6 +1,6 @@
 # Resource Recommendation Engine — Logic & Examples
 
-**Module:** `round_2/recommend.py`  
+**Module:** `recommend.py`  
 **Entry point:** `recommend(event_dict) -> dict`
 
 ---
