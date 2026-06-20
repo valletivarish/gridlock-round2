@@ -199,7 +199,7 @@ def slide_01_title(prs):
     details = [
         "Dataset:  8,173 real ASTraM events  ·  Bengaluru  ·  Nov 2023 – Apr 2024",
         "Three pillars:  Forecast Impact  →  Recommend Resources  →  Keep Learning",
-        "Live prototype:  Streamlit dashboard  +  real-time Event Simulator",
+        "Live prototype:  Streamlit dashboard  —  Event Response + City Insights",
         "Every number traces back to BTP's own ASTraM records",
     ]
     tx3 = slide.shapes.add_textbox(Inches(0.55), Inches(4.05), Inches(11), Inches(2.5))
@@ -434,8 +434,8 @@ def slide_05_solution(prs):
     tf_f = tx_f.text_frame
     p_f = tf_f.paragraphs[0]; p_f.alignment = PP_ALIGN.CENTER
     r_f = p_f.add_run()
-    r_f.text = ("Streamlit dashboard: live map · hotspot heatmap · trend charts · "
-                "Event Simulator (live demo at the finale)")
+    r_f.text = ("Streamlit dashboard: Event Response + City Insights "
+                "(map · hotspots · corridors)  —  live demo at the finale")
     r_f.font.size = Pt(14); r_f.font.bold = True; r_f.font.color.rgb = BTP_ACCENT
 
     return slide
@@ -486,10 +486,15 @@ def slide_06_models(prs):
         else:
             run.font.size = Pt(14); run.font.color.rgb = GREY_MID
 
-    # Right: fig_07 learning curve
+    # Right: fig_05 clearance-by-cause — supports the duration-benchmark text (natural ~2:1 aspect)
     add_image(slide,
-              os.path.join(FIG, "fig_07_learning.png"),
-              Inches(8.4), Inches(1.55), Inches(4.6), Inches(5.6))
+              os.path.join(FIG, "fig_05_resolution_by_cause.png"),
+              Inches(8.35), Inches(3.0), Inches(4.75), Inches(2.39))
+    cap6 = slide.shapes.add_textbox(Inches(8.35), Inches(5.5), Inches(4.75), Inches(0.7))
+    cap6.text_frame.word_wrap = True
+    rc6 = cap6.text_frame.paragraphs[0].add_run()
+    rc6.text = "Clearance time by cause — construction & road_conditions are the >2 h bottlenecks"
+    rc6.font.size = Pt(11); rc6.font.italic = True; rc6.font.color.rgb = GREY_MID
 
     return slide
 
@@ -515,10 +520,10 @@ def slide_07_recommendation(prs):
     # Output fields
     fields = [
         ("Expected clearance",     "~296 min  (EDA: construction median — nearly 5 hours)"),
-        ("Road-closure probability","62%"),
+        ("Road-closure probability","68%"),
         ("Severity",               "HIGH  (all four scoring signals fire)"),
         ("Recommended officers",   "10  (base 6 + 2 peak-hour + 2 closure bonus)"),
-        ("Barricading",            "YES  (62% > 35% threshold = 4× the historical base rate)"),
+        ("Barricading",            "YES  (68% > 35% threshold = 4× the historical base rate)"),
         ("Diversion",              "Magadi Road or Chord Road"),
         ("Responding station",     "Halasuru Gate"),
     ]
@@ -563,10 +568,10 @@ def slide_08_learning(prs):
                   "A static model is a liability — the event mix is already shifting")
     add_accent_line(slide)
 
-    # Table header
-    col_heads = ["Month tested", "Static (frozen) AUC", "Retrained AUC", "Difference"]
-    col_x = [Inches(0.4), Inches(3.2), Inches(7.0), Inches(10.2)]
-    col_w = [Inches(2.7), Inches(3.6), Inches(3.0), Inches(2.8)]
+    # Table header — kept on the LEFT half so it never sits under the chart
+    col_heads = ["Month tested", "Static (frozen)", "Retrained", "Difference"]
+    col_x = [Inches(0.4), Inches(1.9), Inches(3.85), Inches(5.85)]
+    col_w = [Inches(1.45), Inches(1.9), Inches(1.95), Inches(1.55)]
 
     hdr_top = Inches(1.62)
     for j, (h, cx, cw) in enumerate(zip(col_heads, col_x, col_w)):
@@ -578,12 +583,12 @@ def slide_08_learning(prs):
         tf = tx.text_frame
         p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
         r = p.add_run(); r.text = h
-        r.font.size = Pt(14); r.font.bold = True; r.font.color.rgb = WHITE
+        r.font.size = Pt(13); r.font.bold = True; r.font.color.rgb = WHITE
 
     # Table rows
     rows = [
         ("Jan 2024", "0.751", "0.747", "−0.004"),
-        ("Feb 2024", "0.696", "0.714", "+0.018  ← key failure"),
+        ("Feb 2024", "0.696", "0.714", "+0.018"),
         ("Mar 2024", "0.792", "0.805", "+0.013"),
         ("Apr 2024", "0.822", "0.838", "+0.016"),
     ]
@@ -609,10 +614,16 @@ def slide_08_learning(prs):
             else:
                 r.font.color.rgb = BTP_TEXT
 
-    # Right: fig_07
+    # Feb highlight callout (kept out of the table so the column stays narrow)
+    tx_cap = slide.shapes.add_textbox(Inches(0.4), Inches(4.18), Inches(7.0), Inches(0.3))
+    p_cap = tx_cap.text_frame.paragraphs[0]
+    rc = p_cap.add_run(); rc.text = "Feb 2024 — the clearest drift case (static fell below the 0.70 alert line)"
+    rc.font.size = Pt(12); rc.font.italic = True; rc.font.color.rgb = BTP_ACCENT
+
+    # Right: fig_07 — placed clear of the table (table ends at 7.4in, chart starts at 7.6in)
     add_image(slide,
               os.path.join(FIG, "fig_07_learning.png"),
-              Inches(8.1), Inches(1.62), Inches(4.9), Inches(4.2))
+              Inches(7.6), Inches(1.9), Inches(5.55), Inches(3.47))
 
     # Key takeaway bullets
     bullets = [
@@ -621,7 +632,7 @@ def slide_08_learning(prs):
         "Recommended cadence: monthly — aligns with observed cause-mix shift",
         "Alert triggered automatically if AUC drops below 0.70",
     ]
-    tx_b = slide.shapes.add_textbox(Inches(0.4), Inches(5.05), Inches(7.5), Inches(2.1))
+    tx_b = slide.shapes.add_textbox(Inches(0.4), Inches(5.05), Inches(7.0), Inches(2.1))
     tf_b = tx_b.text_frame; tf_b.word_wrap = True
     first = True
     for b in bullets:
@@ -703,7 +714,7 @@ def slide_10_impact(prs):
     left_col = [
         ("Immediate operational changes", [
             "Every logged event gets severity label + officer count in under 1 second",
-            "Closure-risk events (Mysore Road construction 62%) trigger barricade pre-staging",
+            "Closure-risk events (Mysore Road construction 68%) trigger barricade pre-staging",
             "Night-shift gap quantified: 845 events at 2 AM demand staffed response",
             "Seasonal planning: March surge (1,956 events) can be resourced in advance",
         ]),
@@ -809,8 +820,8 @@ def slide_11_tests(prs):
 def slide_12_ask(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_slide_bg(slide)
-    add_title_bar(slide, "The Ask",
-                  "One prototype ready now.  Three things needed to make it operational.")
+    add_title_bar(slide, "Roadmap to Production",
+                  "Built and working today — a clear path from prototype to daily BTP use.")
     add_accent_line(slide)
 
     # What we've built
@@ -822,7 +833,7 @@ def slide_12_ask(prs):
 
     built_items = [
         "Notebook: full EDA + model training + learning-loop comparison, all reproducible",
-        "Streamlit dashboard with live Event Simulator — inference under 1 second per event",
+        "Streamlit dashboard — Event Response + City Insights, inference under 1 second per event",
         "Monthly retraining script ready to schedule; 78/78 formal tests pass",
     ]
     tx_bi = slide.shapes.add_textbox(Inches(0.5), Inches(2.02), Inches(12.3), Inches(1.0))
@@ -871,8 +882,8 @@ def slide_12_ask(prs):
     tf_fk = fk.text_frame; tf_fk.word_wrap = True
     p_fk = tf_fk.paragraphs[0]; p_fk.alignment = PP_ALIGN.CENTER
     r_fk = p_fk.add_run()
-    r_fk.text = ("Flipkart ask: infrastructure + deployment support for the Streamlit dashboard "
-                 "on BTP's internal network")
+    r_fk.text = ("Already live on Streamlit Cloud and fully reproducible — "
+                 "deployable on BTP's internal network today")
     r_fk.font.size = Pt(14); r_fk.font.bold = True; r_fk.font.color.rgb = BTP_ACCENT
 
     return slide

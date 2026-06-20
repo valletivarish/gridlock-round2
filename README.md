@@ -126,7 +126,7 @@ result = recommend(event)
 print(result)
 # {
 #   "expected_clearance_min": 295.6,
-#   "road_closure_prob": 0.62,
+#   "road_closure_prob": 0.68,
 #   "severity": "High",
 #   "recommended_officers": 10,
 #   "barricading": True,
