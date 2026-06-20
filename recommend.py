@@ -292,7 +292,7 @@ def _diversion_advice(corridor: str, closure_prob: float) -> str:
         "CBD 2":                "Cubbon Road or Seshadri Road",
     }
     c = str(corridor).strip()
-    alt = known_alternates.get(c, "use nearest parallel arterial")
+    alt = known_alternates.get(c, "the nearest parallel arterial")
     return f"Activate diversion via {alt}; post officers at diversion junction."
 
 
