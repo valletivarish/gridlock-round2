@@ -3,7 +3,7 @@ Resource Recommendation Engine — Pillar 2 of the BTP Event Intelligence protot
 
 Public API
 ----------
-    from round_2.recommend import recommend
+    from recommend import recommend
     result = recommend(event_dict)   # -> structured dict (see docstring below)
 
 All logic is grounded in the EDA hotspot tables and the impact model outputs.
@@ -12,14 +12,16 @@ as the dataset grows or policies change.
 """
 
 import os
+import sys
 import math
 import numpy as np
 import pandas as pd
 
-from round_2.impact_models import predict_impact
-
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _EDA  = os.path.join(_HERE, "eda")
+sys.path.insert(0, _HERE)  # import siblings whether files sit at repo root (deploy) or in round_2/ (local)
+
+from impact_models import predict_impact
 
 # ── Load EDA hotspot tables once at import time ───────────────────────────────
 

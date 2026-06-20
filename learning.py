@@ -195,8 +195,8 @@ def plot_results(results, path):
 
 if __name__ == "__main__":
     import sys
-    sys.path.insert(0, os.path.join(HERE, ".."))
-    from round_2.data_prep import load_clean
+    sys.path.insert(0, HERE)
+    from data_prep import load_clean
 
     print("Loading data …")
     df = load_clean()
