@@ -43,7 +43,7 @@ Chart: `eda/fig_07_learning.png`
 
 ---
 
-## Honest conclusion
+## Conclusion
 
 Retraining **consistently helps in 3 of 4 months**, and never hurts materially:
 
@@ -51,7 +51,7 @@ Retraining **consistently helps in 3 of 4 months**, and never hurts materially:
 - **Mar and Apr** also show solid gains (~1.3–1.6 pp) as the retrained model accumulates richer data.
 - **Jan** is negligible (−0.4 pp): at this point the cumulative train set is almost identical to the static train set (only 4 extra 2023-Jan rows), so the two strategies are nearly the same model.
 
-The absolute gains are **modest (1–2 pp AUC)** — this is not dramatic, and it would be dishonest to claim otherwise.  
+The absolute gains are **modest (1–2 pp AUC)** — this is not dramatic, and we make no larger claim.  
 What the experiment *does* confirm:
 
 1. The static model **degrades in Feb** (AUC 0.696 — notably weaker) then partially self-recovers as March data pulls the closure rate back up. The retrained model stays smoother.

@@ -26,13 +26,13 @@ changes, and drift over time. Baked in everywhere:
   handling, no crashes on messy input. *(✓ already tested — caught & fixed 116 bad timestamps)*
 - **Unseen categories** — new corridors / causes / junctions fall back to global priors
   (out-of-fold target encoding) + native categorical handling → never break.
-- **Honest validation = TIME split** — train on earlier months, test on later months →
+- **Validation = TIME split** — train on earlier months, test on later months →
   measures real performance on *future / unseen* events (the drift case). Plus
   group-by-corridor test for *unseen locations*.
 - **Drift adaptation** — the post-event learning loop (Pillar 3) updates the model as new
   events resolve.
 - **Edge-case tests** — quantify generalization to unseen time periods / corridors / causes,
-  reported honestly (same discipline as Round 1).
+  reported transparently (same discipline as Round 1).
 
 ---
 
@@ -62,7 +62,7 @@ changes, and drift over time. Baked in everywhere:
 - [ ] **Duration model** (regression) — predicted minutes to clear
 - [ ] **Severity / road-closure model** (classification) — likelihood + priority
 - [ ] Features: cause, type, location/corridor/junction, time-of-day, vehicle type
-- [ ] Honest **time-aware** validation; report MAE/R² and AUC/F1
+- [ ] **Time-aware** validation; report MAE/R² and AUC/F1
 - [ ] Feature importance (explainability for the panel)
 
 ### Phase 4 — PILLAR 2: Resource recommendation engine *(manpower / barricading / diversion)*

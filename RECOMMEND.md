@@ -30,7 +30,7 @@ Calls `predict_impact(event_dict)` from `impact_models.py`:
 - `road_closure_prob` — well-calibrated (AUC 0.81); used directly in severity scoring.
 - `duration_min` — a typical-for-cause benchmark; **not exposed** in the output because the exact duration of any single event is not reliably predictable. The EDA cause table provides cleaner median benchmarks for field communication.
 
-### Step 2 — Expected clearance (honest benchmark)
+### Step 2 — Expected clearance (historical benchmark)
 
 Looked up from `eda/table_bottleneck_causes.csv` by `event_cause`.  
 Key values from data (8,173 real BTP events):
@@ -194,7 +194,7 @@ rationale                Moderate-impact event; road closure likely (55%); typic
                          clearance for fog / low visibility: ~41 min.
 ```
 
-No crash. The unseen corridor degrades gracefully to zone-based station lookup. The clearance benchmark falls back to 41 min (honest: we have no clearance data for this cause). The model still returns a meaningful closure probability using the available context (coordinates, zone, priority).
+No crash. The unseen corridor degrades gracefully to zone-based station lookup. The clearance benchmark falls back to 41 min (we have no clearance data for this cause). The model still returns a meaningful closure probability using the available context (coordinates, zone, priority).
 
 ---
 

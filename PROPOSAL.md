@@ -21,7 +21,7 @@
 8. [Robustness & Generalization](#8-robustness--generalization)
 9. [Real-World Impact for BTP](#9-real-world-impact-for-btp)
 10. [Scalability](#10-scalability)
-11. [Limitations & Honest Assessment](#11-limitations--honest-assessment)
+11. [Limitations & Assessment](#11-limitations--assessment)
 12. [Future Work & Conclusion](#12-future-work--conclusion)
 
 ---
@@ -101,7 +101,7 @@ Each row in the dataset represents one logged incident and includes:
 
 From the timestamps, we derive **event duration** (minutes from start to resolution) — the primary regression target. Road closure status is the binary classification target.
 
-### Data Quality and Honesty
+### Data Quality
 
 The dataset is real operational data, which means it is imperfect. Key quality issues encountered and handled:
 
@@ -323,7 +323,7 @@ The comparison is evaluated on ROC-AUC for the road-closure classifier. Results 
 
 *Source: `TEST_REPORT.md` (reproducible formal test suite, `test_suite.py`) — authoritative numbers.*
 
-**Interpreting these numbers honestly:**
+**Interpreting these numbers:**
 
 ROC-AUC is the primary metric. AUC measures the model's ability to rank closure-risk events above non-closure events across all decision thresholds — it is the right metric when the class is rare and the threshold is adjustable. An AUC of 0.816 means that if we show the model a random closure event and a random non-closure event, it correctly assigns higher probability to the closure 81.6% of the time.
 
@@ -340,7 +340,7 @@ Event cause is the single strongest predictor — the classifier can estimate cl
 
 ### 7.2 Accuracy on Unseen Data — The Key Test
 
-> **The operationally honest question is not "how well does the model fit its training data?" but "how well does it perform on events it has never seen before?"** All validation results in this proposal are on held-out data only.
+> **The operative question is not "how well does the model fit its training data?" but "how well does it perform on events it has never seen before?"** All validation results in this proposal are on held-out data only.
 
 **Time-split (future months):** The model was trained on November 2023 – February 2024. It was tested on March and April 2024 — months it had no exposure to during training. AUC on this future-data test set: **0.816**. This is the number that answers whether the system would have worked in production.
 
@@ -350,7 +350,7 @@ Event cause is the single strongest predictor — the classifier can estimate cl
 
 **Cold-start behaviour:** When presented with a completely unknown corridor *and* an unusual cause (worked example: "Fog / Low Visibility" on "NH-44 Bypass" — neither in any training record), the system does not crash. It returns a closure probability derived from the available context (zone, coordinates, priority), falls back to the vehicle-breakdown clearance benchmark (41 min), and looks up the nearest station by zone. The recommendation is less specific than for a known corridor, but it is valid and actionable.
 
-### 7.3 Duration Regressor — Honest Assessment
+### 7.3 Duration Regressor — Assessment
 
 **Model:** CatBoost · **Target:** `log1p(duration_min)` · **Training rows:** 1,760 (time-split) · **Test rows:** 773
 
@@ -361,7 +361,7 @@ Event cause is the single strongest predictor — the classifier can estimate cl
 
 R² near zero means the model explains essentially none of the variance in individual event duration. This is not a model failure — it reflects a genuine property of the data. Event duration is extremely right-skewed (median ~46 min, max ~1,437 min) and highly sensitive to local conditions the ASTraM record does not capture (tow-truck availability, time to locate vehicle owner, weather, etc.). No model trained on available features can reliably predict the exact duration of an individual breakdown.
 
-The correct and honest response is to **use EDA-derived cause-level medians as the clearance benchmark** rather than model point predictions. These medians — vehicle breakdown: 41 min, construction: 296 min — are directly defensible to BTP because they come from BTP's own historical records, not from a model that cannot explain its variance.
+The correct response is to **use EDA-derived cause-level medians as the clearance benchmark** rather than model point predictions. These medians — vehicle breakdown: 41 min, construction: 296 min — are directly defensible to BTP because they come from BTP's own historical records, not from a model that cannot explain its variance.
 
 The duration model is retained in the pipeline to assist severity scoring internally but is not surfaced to the user as a duration prediction.
 
@@ -380,7 +380,7 @@ The duration model is retained in the pipeline to assist severity scoring intern
 
 February 2024 is the concrete case for the learning loop. The static model's AUC dropped to 0.696 — a meaningful degradation on a rare-class problem where AUC 0.70 is the proposed alert threshold. The retrained model stayed at 0.714 because it incorporated the new event patterns seen in January. In March and April, as the retrained model accumulates more data, its advantage over the frozen model grows to +1.3 and +1.6 pp respectively. Retraining never materially hurts (January: −0.004 pp, negligible at that sample size), providing a clear safety argument for routine monthly retraining.
 
-The gains are modest in absolute terms — 1 to 2 percentage points of AUC — and it would be dishonest to overstate their significance. What the experiment confirms is that a frozen model will silently degrade as the event mix drifts, and that monthly retraining is the minimum-cost countermeasure.
+The gains are modest in absolute terms — 1 to 2 percentage points of AUC — and we do not overstate their significance. What the experiment confirms is that a frozen model will silently degrade as the event mix drifts, and that monthly retraining is the minimum-cost countermeasure.
 
 ---
 
@@ -390,7 +390,7 @@ Robustness to unseen data is a stated judging criterion for Round 2 and a delibe
 
 ### 8.1 Validated on Future Data, Not the Past
 
-The single most important robustness decision is the validation strategy. All headline results reported in this proposal use a **time-based train/test split**: the model is trained on earlier months and tested on later months it has never seen. This is the operationally honest evaluation — it mirrors the real-world scenario where a model trained today must work on events that happen tomorrow.
+The single most important robustness decision is the validation strategy. All headline results reported in this proposal use a **time-based train/test split**: the model is trained on earlier months and tested on later months it has never seen. This is the operationally realistic evaluation — it mirrors the real-world scenario where a model trained today must work on events that happen tomorrow.
 
 ### 8.2 Unseen Corridors
 
@@ -482,13 +482,13 @@ The full model training pipeline runs in under 5 minutes on a standard laptop (t
 
 ---
 
-## 11. Limitations & Honest Assessment
+## 11. Limitations & Assessment
 
 This section identifies what the system cannot do, where the data constrains what is achievable, and what we deliberately chose not to do.
 
 ### Duration Is Not Reliably Predictable
 
-The duration regression model achieves R² near zero on future test data. Individual event duration depends heavily on factors not captured in ASTraM records — tow-truck availability, vehicle owner response time, weather at the time of incident, road width at the specific junction, concurrent incidents nearby. These are not model failures; they are data limits. The clearance benchmarks surfaced to users are EDA-derived historical medians, not model predictions. This is the honest and operationally safer choice.
+The duration regression model achieves R² near zero on future test data. Individual event duration depends heavily on factors not captured in ASTraM records — tow-truck availability, vehicle owner response time, weather at the time of incident, road width at the specific junction, concurrent incidents nearby. These are not model failures; they are data limits. The clearance benchmarks surfaced to users are EDA-derived historical medians, not model predictions. This is the operationally safer choice.
 
 ### F1 Is Low on the Road-Closure Classifier at the Default Threshold
 

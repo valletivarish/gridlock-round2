@@ -314,7 +314,7 @@ def recommend(event_dict: dict) -> dict:
     -------
     dict with keys:
         expected_clearance_min  — typical clearance for this cause from EDA data
-                                  (a benchmark, not a prediction; honest framing)
+                                  (a benchmark, not a prediction)
         road_closure_prob       — model probability of road closure [0, 1]
         severity                — "Low" / "Medium" / "High"
         recommended_officers    — integer; scaled by severity + peak hour + closure risk
@@ -334,7 +334,7 @@ def recommend(event_dict: dict) -> dict:
     priority  = str(event_dict.get("priority",    "unknown")).strip()
     is_peak   = int(event_dict.get("is_peak", 0))
 
-    # ── 3. Expected clearance from EDA cause table (honest benchmark) ─────────
+    # ── 3. Expected clearance from EDA cause table (historical benchmark) ─────────
     # Use cause as reported; fallback to overall median (~41 min for vehicle_breakdown,
     # which dominates the dataset at 60% of events).
     expected_clearance = _CAUSE_MEDIAN_MIN.get(cause, 41.0)

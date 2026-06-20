@@ -364,7 +364,7 @@ The corridor holdout tests generalisation to **unseen locations**.
 Target: `log1p(duration_min)`, evaluated as raw minutes (expm1 of predictions).
 Trained only on rows where `has_duration == 1` ({len(tr_dur_t)} train / {len(te_dur_t)} test rows, time split).
 
-### Honest validation results
+### Validation results
 
 | Model | Split | MAE (min) | R² |
 |---|---|---|---|
@@ -388,7 +388,7 @@ MAE on raw minutes reflects real planning uncertainty, not model failure.*
 Target: `road_closure` (0/1). Class imbalance ~9:1; corrected with `scale_pos_weight`.
 Threshold: 0.5 (adjustable at inference time for precision/recall trade-off).
 
-### Honest validation results
+### Validation results
 
 | Model | Split | ROC-AUC | F1 |
 |---|---|---|---|

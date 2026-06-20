@@ -444,7 +444,7 @@ def slide_05_solution(prs):
 def slide_06_models(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_slide_bg(slide)
-    add_title_bar(slide, "Pillar 1: Impact Forecasting — Honest Model Results",
+    add_title_bar(slide, "Pillar 1: Impact Forecasting — Model Results",
                   "CatBoost · time-based train/test split · trained on past, tested on future months")
     add_accent_line(slide)
 
@@ -462,7 +462,7 @@ def slide_06_models(prs):
         "Top feature: event cause (36 pts) — closure risk estimated from cause alone",
         "even when corridor is entirely unseen.",
         "",
-        "Duration benchmark  —  honest planning uncertainty",
+        "Duration benchmark  —  planning uncertainty",
         "MAE ~103 min on future data.  R² ≈ 0  (duration is not reliably predictable).",
         "EDA cause medians used instead:  breakdown 41 min  ·  construction 296 min",
     ]
@@ -707,7 +707,7 @@ def slide_10_impact(prs):
             "Night-shift gap quantified: 845 events at 2 AM demand staffed response",
             "Seasonal planning: March surge (1,956 events) can be resourced in advance",
         ]),
-        ("Scalability — honest assessment", [
+        ("Scalability — assessment", [
             "Retraining: under 5 minutes on a laptop; new corridors handled without code changes",
             "Real-time feed: replace CSV loader with API call — all downstream logic unchanged",
             "Other cities: retrain on that city's data; one config change (fallback station)",

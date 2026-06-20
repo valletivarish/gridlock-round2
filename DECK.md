@@ -106,7 +106,7 @@ Event logged in ASTraM
 
 ---
 
-## Slide 6 — Pillar 1: Impact Forecasting (Honest Model Results)
+## Slide 6 — Pillar 1: Impact Forecasting (Model Results)
 
 **CatBoost, time-based train/test split: trained on past, tested on future months.**
 
@@ -120,14 +120,14 @@ Event logged in ASTraM
 | Unseen corridors (6 held out) | **~0.70 (0.696)** | 0.335 |
 | Cold-start (unseen corridor + junction) | **~0.73 (0.731)** | — |
 
-- AUC 0.816 on months the model has never seen — this is the honest "does it work tomorrow?" number
+- AUC 0.816 on months the model has never seen — this is the "does it work tomorrow?" number
 - AUC ~0.70 on entirely unseen corridors — degrades from the time-split result but stays above random; still operationally useful
 - F1 is lower because road closures are rare (8.3% of events) — AUC is the right metric for a skewed binary target
 - Top feature by importance: event cause (36 points) — the system can identify closure risk from cause alone even for an unknown corridor
 
 **Duration benchmark (CatBoost, MAE on future data)**
 
-- MAE = 101 min on future test set — honest planning uncertainty, not a flaw
+- MAE = 101 min on future test set — planning uncertainty, not a flaw
 - Duration is right-skewed (median 46 min, max 1,437 min); the benchmark serves as a planning guide, not a stopwatch
 - For field communication, EDA-derived cause-level medians (vehicle breakdown: 41 min; construction: 296 min) are cleaner and safer than point predictions
 
@@ -218,7 +218,7 @@ Rationale                High-impact event on city's #1 congestion corridor;
 - Night-shift coverage gap is quantified: 845 events at 2 AM need staffed response, not morning reaction
 - Seasonal planning: February–March surge (peak: 1,956 events in March) can be resourced in advance
 
-**Scalability path — honest assessment:**
+**Scalability path — assessment:**
 - Current model: 8,173 events over 6 months; retraining takes under 5 minutes on a laptop
 - Handles new corridors, causes, and junctions without code changes — via built-in fallbacks
 - Adding real-time ASTraM feed: replace the CSV loader with an API call; all logic downstream is unchanged

@@ -37,7 +37,7 @@ gridlock-round2/   # repo root
 │   ├── table_top15_junctions.csv
 │   └── table_bottleneck_causes.csv
 ├── models/
-│   ├── MODELS.md               # Validation methodology and honest results
+│   ├── MODELS.md               # Validation methodology and results
 │   ├── cb_closure.pkl          # CatBoost road-closure classifier (primary)
 │   ├── cb_duration.pkl         # CatBoost duration regressor (primary)
 │   ├── lgb_closure.pkl         # LightGBM closure classifier
@@ -104,7 +104,7 @@ streamlit run app.py
 
 The dashboard opens at `http://localhost:8501` with two tabs:
 - **Event Response** — enter a reported event (cause, corridor, zone, priority, time, location) and click *Get Recommendation* for an instant deployment plan: road-closure probability, severity, expected clearance, officer count, barricading flag, nearest police station, and diversion advice with a plain-English rationale.
-- **City Insights** — city-wide KPIs (8,173 events, 94% unplanned, 8.3% closure rate), an event hotspot map, top-corridor rankings, key EDA reference tables, and an honest model-reliability note.
+- **City Insights** — city-wide KPIs (8,173 events, 94% unplanned, 8.3% closure rate), an event hotspot map, top-corridor rankings, key EDA reference tables, and a model-reliability note.
 
 ### 3. Use the recommendation engine directly (Python)
 
@@ -140,7 +140,7 @@ Missing or unseen fields degrade gracefully — no crash, no special-casing need
 
 ---
 
-## Honest results summary
+## Results summary
 
 All validation uses a **time-based split**: train on earlier months (Nov 2023 – Feb 2024), test on later months (Mar – Apr 2024). This measures performance on future, unseen data — the relevant operational question.
 
@@ -203,11 +203,3 @@ Gains are modest but consistent. The Feb dip (static AUC 0.696) is the concrete 
 | Busiest single hour | 2 AM (845 events) |
 | Peak-hour share of events | 20% (1,616/8,173) |
 | Highest monthly volume | March 2024 (1,956 events) |
-
----
-
-## Submission compliance
-
-- Dataset: only the provided ASTraM data (`data/events.csv`) — no external sources
-- Theme: PS2 Event-Driven Congestion
-- Deadline: Jun 21, 11:59 PM IST

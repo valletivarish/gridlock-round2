@@ -126,7 +126,7 @@ AUC 0.8163 on the future time-split and 0.7312 on the doubly-unseen cold-start s
 **Graceful degradation.**
 Every robustness scenario — empty dict, all-unseen categories, sparse input — returns a valid, in-range prediction without crashing. This is critical for a real-time BTP dispatch tool where field reporters may omit fields.
 
-### What is weak (honest)
+### What is weak
 
 **Duration prediction is not predictive on unseen future data.**
 R² of −0.0445 means the model explains none of the variance in future event duration: it performs worse than predicting the training-set mean for every event. The raw MAE of 102.7 min is heavily inflated by a long right tail (construction events averaging ~300 min, water-logging ~107 min, vehicle-breakdown ~41 min). Duration depends strongly on resources deployed *after* the event is reported — information unavailable at prediction time.
